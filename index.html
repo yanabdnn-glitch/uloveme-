@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Kamu 🤍</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,500&family=Dancing+Script:wght@500;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     KONFIGURASI WARNA & TIPOGRAFI
+     ============================================================ */
+  :root{
+    --cream:#FFF9F4;
+    --paper:#FFFDF9;
+    --blush:#FBE2E7;
+    --rose:#E8A9B5;
+    --deep-rose:#C97D8C;
+    --gold:#D9B26A;
+    --gold-soft:#F1DFB8;
+    --ink:#5A4146;
+    --ink-soft:#9B8388;
+    --shadow: 0 10px 40px rgba(201,125,140,0.18);
+
+    --font-display:'Playfair Display', serif;
+    --font-script:'Dancing Script', cursive;
+    --font-body:'Quicksand', sans-serif;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    font-family: var(--font-body);
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 15% 20%, var(--blush) 0%, transparent 45%),
+      radial-gradient(circle at 85% 75%, var(--gold-soft) 0%, transparent 40%),
+      var(--cream);
+    overflow-x:hidden;
+    line-height:1.6;
+  }
+
+  ::selection{ background: var(--rose); color:#fff; }
+
+  /* Scrollbar halus */
+  ::-webkit-scrollbar{ width:8px; }
+  ::-webkit-scrollbar-track{ background: transparent; }
+  ::-webkit-scrollbar-thumb{ background: var(--rose); border-radius:10px; }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  a{ color:inherit; }
+
+  /* ============================================================
+     NAVIGASI TITIK (DOT NAV)
+     ============================================================ */
+  .dot-nav{
+    position: fixed;
+    top: 50%;
+    right: 22px;
+    transform: translateY(-50%);
+    z-index: 500;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .dot-nav a{
+    width:10px; height:10px;
+    border-radius:50%;
+    background: rgba(201,125,140,0.25);
+    border:1px solid var(--rose);
+    display:block;
+    transition: all .35s ease;
+    position:relative;
+  }
+  .dot-nav a.active, .dot-nav a:hover{
+    background: var(--rose);
+    box-shadow: 0 0 0 4px rgba(232,169,181,0.25);
+  }
+  .dot-nav a span{
+    position:absolute;
+    right:22px;
+    top:50%;
+    transform: translateY(-50%);
+    white-space:nowrap;
+    font-size:0.72rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color: var(--deep-rose);
+    background: var(--paper);
+    padding:4px 10px;
+    border-radius:20px;
+    opacity:0;
+    pointer-events:none;
+    transition: opacity .25s ease;
+    box-shadow: var(--shadow);
+  }
+  .dot-nav a:hover span{ opacity:1; }
+
+  @media (max-width: 720px){
+    .dot-nav{
+      top:auto; bottom:14px; right:50%; transform:translateX(50%);
+      flex-direction:row; gap:10px;
+      background: rgba(255,253,249,0.7);
+      padding:8px 14px; border-radius:30px;
+      backdrop-filter: blur(6px);
+      box-shadow: var(--shadow);
+    }
+    .dot-nav a span{ display:none; }
+  }
+
+  /* ============================================================
+     FLOATING HEARTS (LATAR BELAKANG)
+     ============================================================ */
+  .hearts-bg{
+    position:absolute; inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:0;
+  }
+  .heart{
+    position:absolute;
+    bottom:-10%;
+    color: var(--rose);
+    opacity:.55;
+    animation: floatUp linear infinite;
+    filter: drop-shadow(0 4px 10px rgba(232,169,181,0.25));
+  }
+  .heart.gold{ color: var(--gold); }
+  @keyframes floatUp{
+    0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity:0; }
+    10%  { opacity:.6; }
+    50%  { transform: translateY(-55vh) translateX(20px) rotate(15deg); }
+    90%  { opacity:.5; }
+    100% { transform: translateY(-110vh) translateX(-15px) rotate(-10deg); opacity:0; }
+  }
+
+  /* ============================================================
+     SECTION DASAR
+     ============================================================ */
+  section{
+    position:relative;
+    min-height:100vh;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding: 80px 20px;
+    text-align:center;
+    overflow:hidden;
+  }
+
+  .eyebrow{
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--deep-rose);
+    margin-bottom: 14px;
+    font-weight:600;
+  }
+
+  .section-title{
+    font-family: var(--font-display);
+    font-weight:700;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+
+  .scroll-cue{
+    position:absolute;
+    bottom: 34px;
+    left:50%;
+    transform: translateX(-50%);
+    font-size:0.72rem;
+    letter-spacing:.25em;
+    text-transform:uppercase;
+    color: var(--deep-rose);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    opacity:.8;
+    animation: bob 2.4s ease-in-out infinite;
+  }
+  .scroll-cue .line{
+    width:1px; height:34px;
+    background: linear-gradient(to bottom, var(--rose), transparent);
+  }
+  @keyframes bob{
+    0%,100%{ transform: translate(-50%,0); }
+    50%{ transform: translate(-50%,8px); }
+  }
+
+  /* ============================================================
+     HERO
+     ============================================================ */
+  #hero{
+    background: linear-gradient(180deg, var(--blush) 0%, var(--cream) 100%);
+  }
+  .hero-inner{
+    position:relative;
+    z-index:2;
+    max-width: 720px;
+  }
+  .hero-greeting{
+    font-family: var(--font-script);
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    color: var(--deep-rose);
+    opacity:0;
+    animation: fadeUp 1s ease forwards .2s;
+  }
+  .hero-name{
+    font-family: var(--font-display);
+    font-weight:700;
+    font-style: italic;
+    font-size: clamp(2.6rem, 9vw, 5.2rem);
+    color: var(--ink);
+    margin: 10px 0 22px;
+    opacity:0;
+    animation: fadeUp 1.1s ease forwards .55s;
+  }
+  .hero-name .heart-icon{
+    display:inline-block;
+    color: var(--gold);
+    font-size: 0.6em;
+    vertical-align: middle;
+  }
+  .hero-sub{
+    font-size: clamp(0.95rem, 2.4vw, 1.15rem);
+    color: var(--ink-soft);
+    max-width: 480px;
+    margin: 0 auto;
+    opacity:0;
+    animation: fadeUp 1.1s ease forwards .9s;
+  }
+  .hero-divider{
+    width:60px; height:2px;
+    background: var(--gold);
+    margin: 26px auto;
+    opacity:0;
+    animation: fadeUp 1.1s ease forwards 0.75s;
+  }
+  @keyframes fadeUp{
+    from{ opacity:0; transform: translateY(22px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  /* ============================================================
+     SURAT DIGITAL
+     ============================================================ */
+  #letter{
+    background: var(--cream);
+  }
+  .envelope-seal{
+    width: 86px; height:86px;
+    border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, #e3bd7c, var(--gold) 60%, #b9893f);
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--font-script);
+    font-size: 1.9rem;
+    color:#fff;
+    box-shadow: 0 6px 16px rgba(180,140,70,0.4), inset 0 0 0 3px rgba(255,255,255,0.25);
+    margin-bottom: -43px;
+    position:relative;
+    z-index:3;
+    transform: rotate(-6deg);
+  }
+  .letter-card{
+    position:relative;
+    z-index:2;
+    background: var(--paper);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    padding: 70px 36px 44px;
+    max-width: 620px;
+    width:100%;
+    border: 1px solid rgba(217,178,106,0.25);
+  }
+  .letter-card::before{
+    content:"";
+    position:absolute;
+    inset:14px;
+    border:1px dashed rgba(232,169,181,0.45);
+    border-radius:10px;
+    pointer-events:none;
+  }
+  .letter-to{
+    font-family: var(--font-display);
+    font-style:italic;
+    font-size: 1.3rem;
+    color: var(--deep-rose);
+    margin-bottom: 18px;
+  }
+  .letter-body{
+    max-height: 46vh;
+    overflow-y:auto;
+    padding: 4px 14px 4px 4px;
+    text-align:left;
+    font-size: 1.02rem;
+    color: var(--ink);
+    line-height: 1.95;
+  }
+  .letter-body p{ margin-bottom: 14px; }
+  .letter-signature{
+    margin-top: 22px;
+    font-family: var(--font-script);
+    font-size: 1.8rem;
+    color: var(--deep-rose);
+    text-align:right;
+    padding-right: 14px;
+  }
+
+  /* ============================================================
+     GALERI KENANGAN
+     ============================================================ */
+  #gallery{ background: linear-gradient(180deg, var(--cream), var(--blush)); }
+
+  .gallery-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 22px;
+    max-width: 940px;
+    width:100%;
+    margin-top: 26px;
+  }
+  .memory-card{
+    background: var(--paper);
+    border-radius: 16px;
+    overflow:hidden;
+    box-shadow: var(--shadow);
+    transition: transform .35s ease, box-shadow .35s ease;
+    opacity:0;
+    transform: translateY(26px);
+  }
+  .memory-card.visible{
+    opacity:1;
+    transform: translateY(0);
+    transition: transform .6s ease, box-shadow .35s ease, opacity .6s ease;
+  }
+  .memory-card:hover{
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 16px 40px rgba(201,125,140,0.28);
+  }
+  .memory-photo{
+    width:100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    display:block;
+    background: linear-gradient(135deg, var(--blush), var(--gold-soft));
+  }
+  .memory-photo.placeholder{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 2.6rem;
+    color: var(--rose);
+  }
+  .memory-caption{
+    font-family: var(--font-script);
+    font-size: 1.18rem;
+    color: var(--deep-rose);
+    padding: 14px 16px 18px;
+  }
+
+  /* ============================================================
+     MUSIK
+     ============================================================ */
+  .music-toggle{
+    position: fixed;
+    bottom: 26px;
+    left: 26px;
+    z-index: 500;
+    width: 54px; height:54px;
+    border-radius:50%;
+    background: var(--paper);
+    border: 1px solid rgba(217,178,106,0.4);
+    box-shadow: var(--shadow);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition: transform .25s ease;
+  }
+  .music-toggle:hover{ transform: scale(1.08); }
+  .music-toggle svg{ width:22px; height:22px; fill: var(--deep-rose); }
+  .music-toggle.playing{
+    animation: pulseRing 1.8s ease-in-out infinite;
+  }
+  @keyframes pulseRing{
+    0%,100%{ box-shadow: var(--shadow), 0 0 0 0 rgba(201,125,140,0.35); }
+    50%{ box-shadow: var(--shadow), 0 0 0 10px rgba(201,125,140,0.05); }
+  }
+  @media (max-width:720px){
+    .music-toggle{ bottom: 76px; }
+  }
+
+  /* ============================================================
+     COUNTDOWN
+     ============================================================ */
+  #countdown{
+    background: linear-gradient(180deg, var(--blush), var(--cream));
+  }
+  .countdown-grid{
+    display:flex;
+    gap: 16px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-top: 30px;
+  }
+  .countdown-box{
+    background: var(--paper);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 22px 18px;
+    min-width: 92px;
+    border-bottom: 3px solid var(--gold);
+  }
+  .countdown-number{
+    font-family: var(--font-display);
+    font-weight:700;
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    color: var(--deep-rose);
+  }
+  .countdown-label{
+    font-size: 0.75rem;
+    letter-spacing: .18em;
+    text-transform:uppercase;
+    color: var(--ink-soft);
+    margin-top: 6px;
+  }
+  .countdown-target{
+    margin-top: 22px;
+    font-family: var(--font-script);
+    font-size: 1.3rem;
+    color: var(--deep-rose);
+  }
+
+  /* ============================================================
+     PENUTUP / KEJUTAN
+     ============================================================ */
+  #closing{
+    background: linear-gradient(180deg, var(--cream), var(--blush) 60%, var(--gold-soft));
+  }
+  .closing-card{
+    max-width: 600px;
+    position:relative;
+    z-index:2;
+  }
+  .closing-message{
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin: 0 auto 30px;
+    max-width: 480px;
+  }
+  .reveal-btn{
+    font-family: var(--font-display);
+    font-style:italic;
+    font-size: 1.15rem;
+    color:#fff;
+    background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+    border:none;
+    border-radius: 50px;
+    padding: 16px 42px;
+    cursor:pointer;
+    box-shadow: 0 10px 30px rgba(201,125,140,0.4);
+    transition: transform .25s ease, box-shadow .25s ease;
+    letter-spacing: .03em;
+  }
+  .reveal-btn:hover{ transform: translateY(-3px); box-shadow: 0 14px 36px rgba(201,125,140,0.5); }
+  .reveal-btn:active{ transform: translateY(0px) scale(.98); }
+  .reveal-btn:focus-visible{
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  .final-message{
+    margin-top: 30px;
+    font-family: var(--font-script);
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    color: var(--deep-rose);
+    max-width: 520px;
+    opacity:0;
+    transform: scale(.92);
+    transition: opacity .8s ease, transform .8s ease;
+  }
+  .final-message.show{ opacity:1; transform: scale(1); }
+
+  .final-note{
+    margin-top: 18px;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    opacity:0;
+    transform: translateY(10px);
+    transition: opacity .8s ease .3s, transform .8s ease .3s;
+  }
+  .final-note.show{ opacity:1; transform: translateY(0); }
+
+  /* ============================================================
+     CONFETTI CANVAS
+     ============================================================ */
+  #confetti-canvas{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:600;
+  }
+
+  /* ============================================================
+     ANIMASI MUNCUL SAAT SCROLL
+     ============================================================ */
+  .fade-in-up{
+    opacity:0;
+    transform: translateY(28px);
+    transition: opacity .8s ease, transform .8s ease;
+  }
+  .fade-in-up.visible{
+    opacity:1;
+    transform: translateY(0);
+  }
+
+  footer{
+    text-align:center;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    padding: 22px;
+    background: var(--gold-soft);
+  }
+</style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<!-- ============================================================
+     NAVIGASI TITIK
+     ============================================================ -->
+<nav class="dot-nav" aria-label="Navigasi bagian">
+  <a href="#hero" class="active" data-label="Pembuka"><span>Pembuka</span></a>
+  <a href="#letter" data-label="Surat"><span>Surat</span></a>
+  <a href="#gallery" data-label="Kenangan"><span>Kenangan</span></a>
+  <a href="#countdown" data-label="Hitung Mundur"><span>Hitung Mundur</span></a>
+  <a href="#closing" data-label="Kejutan"><span>Kejutan</span></a>
+</nav>
+
+<!-- ============================================================
+     TOMBOL MUSIK
+     ============================================================ -->
+<button class="music-toggle" id="musicToggle" aria-label="Putar musik latar">
+  <svg id="iconPlay" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+  <svg id="iconPause" viewBox="0 0 24 24" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+</button>
+<!-- Ganti src di bawah dengan URL musik pilihanmu, atau file lokal misalnya "musik.mp3" -->
+<audio id="bgMusic" loop preload="none">
+  <source src="https://actions.google.com/sounds/v1/ambiences/coffee_house.ogg" type="audio/ogg">
+</audio>
+
+<!-- ============================================================
+     1. HALAMAN PEMBUKA
+     ============================================================ -->
+<section id="hero">
+  <div class="hearts-bg" id="heartsBg"></div>
+  <div class="hero-inner">
+    <p class="hero-greeting">Untukmu, dengan sepenuh hati</p>
+    <h1 class="hero-name">
+      <!-- Ganti "Nama Penerima" dengan nama orang yang kamu sayangi -->
+      Nama Penerima <span class="heart-icon">♥</span>
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">
+      Ini hadiah kecil untukmu — sebuah ruang kecil berisi kata-kata,
+      kenangan, dan harapan yang ingin aku simpan untukmu.
+    </p>
+  </div>
+  <div class="scroll-cue">
+    <span class="line"></span>
+    Gulir ke bawah
+  </div>
+</section>
+
+<!-- ============================================================
+     2. SURAT DIGITAL
+     ============================================================ -->
+<section id="letter">
+  <div class="eyebrow fade-in-up">Sepucuk Surat</div>
+  <div class="envelope-seal">♥</div>
+  <div class="letter-card">
+    <!-- Ganti "Sayang" dengan nama panggilan / sapaan untuk penerima -->
+    <p class="letter-to">Untuk kamu, yang paling berarti,</p>
+
+    <div class="letter-body">
+      <!-- Ganti seluruh isi surat di bawah ini dengan kata-katamu sendiri -->
+      <p>
+        Aku tidak tahu harus mulai dari mana, jadi aku akan mulai dengan
+        hal paling sederhana: terima kasih sudah hadir dalam hidupku.
+      </p>
+      <p>
+        Sejak kamu ada, hari-hari biasa terasa lebih berwarna. Hal-hal
+        kecil yang dulu terasa biasa saja, sekarang jadi momen yang aku
+        tunggu — pesan pagi, cerita random di sore hari, sampai tawa
+        kecil yang entah kenapa selalu bikin harimu lebih baik.
+      </p>
+      <p>
+        Aku membuat halaman kecil ini bukan karena ingin memberi sesuatu
+        yang mewah, tapi karena ingin kamu tahu betapa kamu dihargai —
+        lebih dari yang mungkin kamu sadari.
+      </p>
+      <p>
+        Semoga hadiah sederhana ini bisa membuatmu tersenyum, walau
+        cuma sedikit. Dan semoga setiap kali kamu membuka halaman ini,
+        kamu diingatkan bahwa ada seseorang yang selalu mendoakan dan
+        memikirkanmu.
+      </p>
+      <p>
+        Terima kasih untuk semua hal kecil yang kamu lakukan, untuk
+        kehadiranmu, dan untuk menjadi dirimu sendiri.
+      </p>
+    </div>
+
+    <p class="letter-signature">— dengan cinta</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     3. GALERI KENANGAN
+     ============================================================ -->
+<section id="gallery">
+  <div class="eyebrow fade-in-up">Album Kecil Kita</div>
+  <h2 class="section-title fade-in-up">Galeri Kenangan</h2>
+  <p class="fade-in-up" style="max-width:480px;color:var(--ink-soft);">
+    Beberapa momen yang aku simpan baik-baik. Ganti gambar di bawah
+    dengan fotomu sendiri, dan tulis ceritanya di setiap caption.
+  </p>
+
+  <div class="gallery-grid" id="galleryGrid">
+    <!-- Setiap kartu kenangan akan dibuat otomatis oleh JavaScript
+         dari data MEMORIES di bagian bawah file ini -->
+  </div>
+</section>
+
+<!-- ============================================================
+     4. COUNTDOWN MOMEN SPESIAL
+     ============================================================ -->
+<section id="countdown">
+  <div class="eyebrow fade-in-up">Menanti Bersama</div>
+  <h2 class="section-title fade-in-up">Hitung Mundur Hari Spesial</h2>
+  <p class="fade-in-up" style="max-width:460px;color:var(--ink-soft);">
+    Tidak sabar menunggu hari ini tiba.
+  </p>
+
+  <div class="countdown-grid fade-in-up">
+    <div class="countdown-box">
+      <div class="countdown-number" id="cdDays">00</div>
+      <div class="countdown-label">Hari</div>
+    </div>
+    <div class="countdown-box">
+      <div class="countdown-number" id="cdHours">00</div>
+      <div class="countdown-label">Jam</div>
+    </div>
+    <div class="countdown-box">
+      <div class="countdown-number" id="cdMinutes">00</div>
+      <div class="countdown-label">Menit</div>
+    </div>
+    <div class="countdown-box">
+      <div class="countdown-number" id="cdSeconds">00</div>
+      <div class="countdown-label">Detik</div>
+    </div>
+  </div>
+
+  <p class="countdown-target fade-in-up" id="countdownTargetLabel"></p>
+</section>
+
+<!-- ============================================================
+     5. HALAMAN PENUTUP
+     ============================================================ -->
+<section id="closing">
+  <div class="hearts-bg" id="heartsBgClosing"></div>
+  <div class="closing-card">
+    <div class="eyebrow fade-in-up">Sebelum Kamu Pergi</div>
+    <h2 class="section-title fade-in-up">Satu Hal Terakhir...</h2>
+    <p class="closing-message fade-in-up">
+      Aku menyiapkan satu pesan kecil lagi, khusus untukmu. Tekan tombol
+      di bawah ini kalau kamu sudah siap membukanya.
+    </p>
+    <button class="reveal-btn fade-in-up" id="revealBtn">Buka Kejutan ✨</button>
+
+    <p class="final-message" id="finalMessage">
+      Aku sayang kamu, lebih dari kata-kata yang bisa aku tulis. 🤍
+    </p>
+    <p class="final-note" id="finalNote">
+      Semoga harimu — dan semua hari setelahnya — dipenuhi hal-hal baik.
+    </p>
+  </div>
+</section>
+
+<footer>
+  Dibuat dengan ♥ — sebuah kado digital sederhana untuk seseorang yang berarti.
+</footer>
+
+<script>
+/* ================================================================
+   PUSAT KUSTOMISASI
+   Ubah nilai-nilai di bawah ini untuk menyesuaikan kado digitalmu.
+   ================================================================ */
+const CONFIG = {
+  // Tanggal & waktu momen spesial (format: "YYYY-MM-DDTHH:mm:ss")
+  specialDate: "2026-12-25T00:00:00",
+  specialDateLabel: "🎄 Hari Jadi Kita — 25 Desember 2026",
+
+  // Daftar kenangan untuk galeri.
+  // "img": isi dengan URL foto (atau biarkan kosong untuk pakai placeholder ikon)
+  // "caption": teks singkat di bawah foto
+  memories: [
+    { img: "", caption: "Hari pertama kita ngobrol 💬" },
+    { img: "", caption: "Jalan-jalan favorit kita 🌇" },
+    { img: "", caption: "Momen paling lucu, inget gak? 😄" },
+    { img: "", caption: "Saat kamu pertama kali tersenyum lebar 🌸" },
+    { img: "", caption: "Liburan kecil yang berkesan 🌊" },
+    { img: "", caption: "Setiap momen sederhana bersamamu ✨" }
+  ]
+};
+
+/* ================================================================
+   1. FLOATING HEARTS
+   ================================================================ */
+function spawnHearts(containerId, count){
+  const container = document.getElementById(containerId);
+  if(!container) return;
+  const symbols = ["♥","❀","✦"];
+  for(let i=0;i<count;i++){
+    const heart = document.createElement("span");
+    heart.className = "heart" + (Math.random() > 0.7 ? " gold" : "");
+    heart.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+    const size = 12 + Math.random()*22;
+    heart.style.left = Math.random()*100 + "%";
+    heart.style.fontSize = size + "px";
+    heart.style.animationDuration = (8 + Math.random()*10) + "s";
+    heart.style.animationDelay = (Math.random()*10) + "s";
+    container.appendChild(heart);
+  }
+}
+spawnHearts("heartsBg", 18);
+spawnHearts("heartsBgClosing", 14);
+
+/* ================================================================
+   2. NAVIGASI TITIK — highlight bagian aktif
+   ================================================================ */
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll(".dot-nav a");
+
+const sectionObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      navLinks.forEach(link=>{
+        link.classList.toggle("active", link.getAttribute("href") === "#"+entry.target.id);
+      });
+    }
+  });
+}, { threshold: 0.5 });
+
+sections.forEach(sec => sectionObserver.observe(sec));
+
+/* ================================================================
+   3. ANIMASI MUNCUL SAAT SCROLL
+   ================================================================ */
+const revealObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible");
+    }
+  });
+}, { threshold: 0.18 });
+
+document.querySelectorAll(".fade-in-up, .memory-card").forEach(el=>{
+  revealObserver.observe(el);
+});
+
+/* ================================================================
+   4. GALERI KENANGAN — render dari CONFIG.memories
+   ================================================================ */
+const galleryGrid = document.getElementById("galleryGrid");
+CONFIG.memories.forEach((memory, index)=>{
+  const card = document.createElement("div");
+  card.className = "memory-card";
+  card.style.transitionDelay = (index * 0.06) + "s";
+
+  let mediaHTML;
+  if(memory.img && memory.img.trim() !== ""){
+    mediaHTML = `<img class="memory-photo" src="${memory.img}" alt="${memory.caption}">`;
+  }else{
+    // Placeholder lembut jika belum ada foto
+    mediaHTML = `<div class="memory-photo placeholder">📷</div>`;
+  }
+
+  card.innerHTML = `
+    ${mediaHTML}
+    <div class="memory-caption">${memory.caption}</div>
+  `;
+  galleryGrid.appendChild(card);
+  revealObserver.observe(card);
+});
+
+/* ================================================================
+   5. MUSIK LATAR — tombol play / pause
+   ================================================================ */
+const musicToggle = document.getElementById("musicToggle");
+const bgMusic = document.getElementById("bgMusic");
+const iconPlay = document.getElementById("iconPlay");
+const iconPause = document.getElementById("iconPause");
+
+musicToggle.addEventListener("click", ()=>{
+  if(bgMusic.paused){
+    bgMusic.play().catch(()=>{
+      console.log("Audio tidak dapat diputar otomatis. Sentuh layar lagi untuk mencoba.");
+    });
+    iconPlay.style.display = "none";
+    iconPause.style.display = "block";
+    musicToggle.classList.add("playing");
+    musicToggle.setAttribute("aria-label","Hentikan musik latar");
+  }else{
+    bgMusic.pause();
+    iconPlay.style.display = "block";
+    iconPause.style.display = "none";
+    musicToggle.classList.remove("playing");
+    musicToggle.setAttribute("aria-label","Putar musik latar");
+  }
+});
+
+/* ================================================================
+   6. COUNTDOWN MOMEN SPESIAL
+   ================================================================ */
+const targetDate = new Date(CONFIG.specialDate).getTime();
+document.getElementById("countdownTargetLabel").textContent = CONFIG.specialDateLabel;
+
+const cdDays = document.getElementById("cdDays");
+const cdHours = document.getElementById("cdHours");
+const cdMinutes = document.getElementById("cdMinutes");
+const cdSeconds = document.getElementById("cdSeconds");
+
+function pad(n){ return n.toString().padStart(2,"0"); }
+
+function updateCountdown(){
+  const now = new Date().getTime();
+  let diff = targetDate - now;
+
+  if(diff <= 0){
+    cdDays.textContent = "00";
+    cdHours.textContent = "00";
+    cdMinutes.textContent = "00";
+    cdSeconds.textContent = "00";
+    return;
+  }
+
+  const day = Math.floor(diff / (1000*60*60*24));
+  diff -= day * (1000*60*60*24);
+  const hour = Math.floor(diff / (1000*60*60));
+  diff -= hour * (1000*60*60);
+  const minute = Math.floor(diff / (1000*60));
+  diff -= minute * (1000*60);
+  const second = Math.floor(diff / 1000);
+
+  cdDays.textContent = pad(day);
+  cdHours.textContent = pad(hour);
+  cdMinutes.textContent = pad(minute);
+  cdSeconds.textContent = pad(second);
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+/* ================================================================
+   7. HALAMAN PENUTUP — tombol "Buka Kejutan" + confetti
+   ================================================================ */
+const revealBtn = document.getElementById("revealBtn");
+const finalMessage = document.getElementById("finalMessage");
+const finalNote = document.getElementById("finalNote");
+
+revealBtn.addEventListener("click", ()=>{
+  finalMessage.classList.add("show");
+  finalNote.classList.add("show");
+  revealBtn.disabled = true;
+  revealBtn.style.opacity = "0.6";
+  revealBtn.style.cursor = "default";
+  launchConfetti();
+});
+
+/* ================================================================
+   8. CONFETTI SEDERHANA (canvas, tanpa library eksternal)
+   ================================================================ */
+const canvas = document.getElementById("confetti-canvas");
+const ctx = canvas.getContext("2d");
+
+function resizeCanvas(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+const confettiColors = ["#E8A9B5","#D9B26A","#FBE2E7","#C97D8C","#FFFFFF"];
+
+function launchConfetti(){
+  const pieces = [];
+  const total = 140;
+
+  for(let i=0;i<total;i++){
+    pieces.push({
+      x: Math.random()*canvas.width,
+      y: -20 - Math.random()*canvas.height*0.3,
+      size: 6 + Math.random()*8,
+      color: confettiColors[Math.floor(Math.random()*confettiColors.length)],
+      speedY: 2 + Math.random()*3,
+      speedX: -1.5 + Math.random()*3,
+      rotation: Math.random()*360,
+      rotationSpeed: -6 + Math.random()*12,
+      shape: Math.random() > 0.5 ? "rect" : "heart"
+    });
+  }
+
+  let frame = 0;
+  const maxFrames = 240;
+
+  function drawHeartShape(p){
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rotation * Math.PI/180);
+    ctx.fillStyle = p.color;
+    const s = p.size*0.5;
+    ctx.beginPath();
+    ctx.moveTo(0, s*0.6);
+    ctx.bezierCurveTo(-s, -s*0.4, -s*0.2, -s, 0, -s*0.2);
+    ctx.bezierCurveTo(s*0.2, -s, s, -s*0.4, 0, s*0.6);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function animate(){
+    ctx.clearRect(0,0,canvas.width, canvas.height);
+    pieces.forEach(p=>{
+      p.x += p.speedX;
+      p.y += p.speedY;
+      p.rotation += p.rotationSpeed;
+
+      if(p.shape === "heart"){
+        drawHeartShape(p);
+      }else{
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation * Math.PI/180);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size*0.6);
+        ctx.restore();
+      }
+    });
+
+    frame++;
+    if(frame < maxFrames){
+      requestAnimationFrame(animate);
+    }else{
+      ctx.clearRect(0,0,canvas.width, canvas.height);
+    }
+  }
+  animate();
+}
+</script>
+</body>
+</html>
